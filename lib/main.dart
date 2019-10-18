@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movies/api/dio.dart';
 
 void main() => runApp(MyApp());
 
@@ -54,6 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      Api api = new Api();
+      api.get('http://www.baidu.com/');
     });
   }
 
@@ -96,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
+              key: Key('counter'),
               style: Theme.of(context).textTheme.display1,
             ),
           ],
@@ -103,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
+        key: Key('increment'),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
