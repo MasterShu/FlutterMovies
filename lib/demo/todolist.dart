@@ -12,9 +12,7 @@ class _TodoListState extends State<TodoList> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text(_title),
         ),
@@ -47,7 +45,6 @@ class _TodoListState extends State<TodoList> {
           },
           child: Icon(Icons.add),
         ),
-      ),
-    );
+      );
   }
 }

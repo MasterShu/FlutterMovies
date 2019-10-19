@@ -1,5 +1,5 @@
 
-import 'package:flutter_movies/counter.dart';
+import 'package:flutter_movies/counter/counter.dart';
 import 'package:test/test.dart';
 
 void main() {
