@@ -8,7 +8,7 @@ void main() {
     final buttonFinder = find.byValueKey('increment');
 
     FlutterDriver driver;
-    // Conncet to the flutter driver before running any test cases.
+    // Connect to the flutter driver before running any test cases.
     setUpAll(() async {
       driver = await FlutterDriver.connect();
     });
@@ -31,7 +31,7 @@ void main() {
 
   group('Scrollable App', () {
    FlutterDriver driver;
-    // Conncet to the flutter driver before running any test cases.
+    // Connect to the flutter driver before running any test cases.
     setUpAll(() async {
       driver = await FlutterDriver.connect();
     });
