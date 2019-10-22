@@ -27,7 +27,8 @@ dependencies:
   # A powerful Http client for Dart
   dio: ^3.0.3
 
-  flutter_native_splash: ^0.1.9
+  # state management
+  provider: ^3.1.0+1
 
 dev_dependencies:
   flutter_test:
@@ -79,8 +80,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-
-# splash confg
-flutter_native_splash:
-  image: assets/001.jpg
-  color: "42a5f5"
