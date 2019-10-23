@@ -1,7 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_movies/demo/demo_event.dart';
 import 'package:provider/provider.dart';
 
+import 'counter/counterLocalView.dart';
 import 'todolist.dart';
 import 'counter/counterModel.dart';
 import 'counter/counterProView.dart';
@@ -10,51 +13,100 @@ import 'counter/counterView.dart';
 class Demo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
+    return WillPopScope(
+      child: ChangeNotifierProvider.value(
         value: CounterModel(),
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.purple,
           ),
-          home: DemoPage(),
-        ));
+          home: DemoPage(context),
+        )),
+      onWillPop: () async {
+        DemoEvent().eventBus.fire(BackClickEvent('back'));
+        ModalRoute.of(context).navigator.toString();
+        return false;
+      }
+    );
   }
 }
 
-class DemoPage extends StatelessWidget {
+class DemoPage extends StatefulWidget {
+  final BuildContext _context;
+  DemoPage(this._context);
+
+  @override
+  _DemoPageState createState() => _DemoPageState(_context);
+}
+
+class _DemoPageState extends State<DemoPage> {
+  BuildContext _context;
+  StreamSubscription subscription;
+
+  _DemoPageState(this._context);
+
   static final todoList = (context) => ListTile(
-        title: Text('TodoList'),
-        leading: Icon(Icons.list),
-        onTap: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TodoList())),
-      );
+    title: Text('TodoList'),
+    leading: Icon(Icons.list),
+    onTap: () => Navigator.push(
+      context, MaterialPageRoute(builder: (context) => TodoList())),
+  );
   static final counter = (context) => ListTile(
-        leading: Icon(Icons.calendar_today),
-        title: Text('计数器'),
-        onTap: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => CounterView())),
-      );
+    leading: Icon(Icons.calendar_today),
+    title: Text('计数器'),
+    onTap: () => Navigator.push(
+      context, MaterialPageRoute(builder: (context) => CounterView())),
+  );
   final counterPro = (context) => ListTile(
-        leading: Icon(Icons.alarm),
-        title: Text('计数器 provider 版'),
-        onTap: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => CounterProView())),
-        subtitle: Consumer<CounterModel>(
-            builder: (context, CounterModel _counter, _) =>
-                Text('${_counter.value}')),
-      );
+    leading: Icon(Icons.alarm),
+    title: Text('计数器 provider 版'),
+    onTap: () => Navigator.push(
+      context, MaterialPageRoute(builder: (context) => CounterProView())),
+    subtitle: Consumer<CounterModel>(
+      builder: (context, CounterModel _counter, _) =>
+        Text('${_counter.value}')),
+  );
+  static final counterLocal = (context) => ListTile(
+    leading: Icon(Icons.calendar_today),
+    title: Text('计数器 file 存储版'),
+    onTap: () => Navigator.push(
+      context, MaterialPageRoute(builder: (context) => CounterLocalView())),
+  );
+
+  @override
+  void initState() {
+    subscription = DemoEvent().eventBus.on<BackClickEvent>().listen((event) {
+      var navigator = ModalRoute.of(context).navigator;
+      if(navigator.canPop()) {
+        ModalRoute.of(context).navigator.pop();
+      } else {
+        Navigator.pop(_context);
+      }
+    });
+    super.initState();
+  }
+
+  dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text('举个🌰')),
+      appBar: AppBar(
+        title: Text('举个🌰'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.close), onPressed: () => Navigator.pop(_context),)
+        ],
+      ),
       body: ListView(
         children: <Widget>[
           todoList(context),
           counter(context),
-          counterPro(context)
+          counterLocal(context),
+          counterPro(context),
         ],
       ),
     );
