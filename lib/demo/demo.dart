@@ -5,6 +5,7 @@ import 'package:flutter_movies/demo/demo_event.dart';
 import 'package:provider/provider.dart';
 
 import 'counter/counterLocalView.dart';
+import 'counter/counterSharedView.dart';
 import 'todolist.dart';
 import 'counter/counterModel.dart';
 import 'counter/counterProView.dart';
@@ -73,6 +74,12 @@ class _DemoPageState extends State<DemoPage> {
     onTap: () => Navigator.push(
       context, MaterialPageRoute(builder: (context) => CounterLocalView())),
   );
+  static final counterShared = (context) => ListTile(
+    leading: Icon(Icons.calendar_today),
+    title: Text('计数器 SharedPerferences 版'),
+    onTap: () => Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CounterSharedView())),
+  );
 
   @override
   void initState() {
@@ -107,6 +114,7 @@ class _DemoPageState extends State<DemoPage> {
           counter(context),
           counterLocal(context),
           counterPro(context),
+          counterShared(context),
         ],
       ),
     );

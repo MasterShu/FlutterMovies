@@ -33,6 +33,9 @@ dependencies:
   # Finding commonly used locations on the filesystem
   path_provider: ^1.4.0
 
+  # Persistent store for simple data
+  shared_preferences: ^0.5.4
+
   event_bus: ^1.1.0
 
 dev_dependencies:
