@@ -7,9 +7,9 @@ import 'package:path_provider/path_provider.dart';
 
 import '../widget.dart';
 
-// Because of this test used of io operation, so you need run this test use true.
-// such as this command.
-// flutter run test/demo/counter_local_test.dart
+/// Because of this test used of io operation, so you need run this test use true.
+/// such as this command.
+/// flutter run test/demo/counter_local_test.dart
 void main() {
 
   testWidgets('Counter with local file storage', (WidgetTester tester) async {

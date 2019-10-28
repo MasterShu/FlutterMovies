@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 
 import 'counter/counterLocalView.dart';
 import 'counter/counterSharedView.dart';
-import 'todolist.dart';
+import 'todo_list/todo_sqlite.dart';
+import 'todo_list/todolist.dart';
 import 'counter/counterModel.dart';
 import 'counter/counterProView.dart';
 import 'counter/counterView.dart';
@@ -47,6 +48,16 @@ class _DemoPageState extends State<DemoPage> {
 
   _DemoPageState(this._context);
 
+  _buildList(context, title, icon, view) {
+    return ListTile(
+      title: Text(title),
+      leading: Icon(icon),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => view)
+      ),
+    );
+  }
   static final todoList = (context) => ListTile(
     title: Text('TodoList'),
     leading: Icon(Icons.list),
@@ -111,6 +122,7 @@ class _DemoPageState extends State<DemoPage> {
       body: ListView(
         children: <Widget>[
           todoList(context),
+          _buildList(context, 'Todo Sqlite Version', Icons.list, TodoSqlite()),
           counter(context),
           counterLocal(context),
           counterPro(context),
