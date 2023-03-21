@@ -25,13 +25,13 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   # A powerful Http client for Dart
-  dio: ^3.0.3
+  dio: ">=3.0.3 <6.0.0"
 
   # state management
   provider: ^3.1.0+1
 
   # Finding commonly used locations on the filesystem
-  path_provider: ^1.4.0
+  path_provider: ">=1.4.0 <3.0.0"
 
   # Persistent store for simple data
   shared_preferences: ^0.5.4
@@ -45,7 +45,7 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   test: any
-  mockito: ^4.1.1
+  mockito: ">=4.1.1 <6.0.0"
 
 
 # For information on the generic Dart part of this file, see the
